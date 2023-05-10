@@ -2,15 +2,16 @@ import { useRef, useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 // import useFetch from '../../hooks/useFetch'
 
-const Search = ({getData}) => {
+const Search = ({ getData }) => {
 
   const inputSearch = useRef<HTMLInputElement | null>(null)
 
   const btnSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log(inputSearch)
-    console.log('TEST')
-    getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_API_KEY_POSITIONSTACK}&query=${inputSearch.current.value}`)
+    if(inputSearch) {
+      getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_API_KEY_POSITIONSTACK}&query=${inputSearch.current.value}`)
+    }
   }
 
   return (

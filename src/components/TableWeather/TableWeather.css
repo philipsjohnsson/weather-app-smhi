@@ -1,0 +1,14 @@
+.table {
+    width: 100%;
+    table-layout: fixed;
+    
+}
+
+.weather-info-tr:hover {
+    cursor: pointer;
+    background-color: beige;
+}
+
+td {
+    padding: 0;
+}

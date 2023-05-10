@@ -1,24 +1,37 @@
 import { useState } from "react"
 
 const useFetch = () => {
-  const [fetchedData, setData] = useState<any>(null) // make this a type, interface
-  const [error, setError] = useState<Error | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [data, setData] = useState<any>(null) // make this a type, interface
+  const [error, setError] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
     const getData = async (url: string) => {
       try {
-        const data = await fetch(`${url}`)
-        const dataJson = await data.json()
-        console.log(dataJson)
-        setData(dataJson.data)
+        // setData(null)
+        setLoading(true)
+        setError(false)
+        console.log('_-------_')
+        console.log(url)
+        const response = await fetch(url)
+        console.log(response)
+        const responseJson = await response.json()
+        console.log(responseJson)
+        if(responseJson.error) {
+          throw new Error('Something went wrong!')
+        } else {
+          setData(responseJson)
+          console.log('data inside of useFetch')
+        }
       } catch (error) {
-        setError(error)
+        console.log('WE ARE INSIDE OF ERROR')
+        console.log(error)
+        setError(true)
       } finally {
         setLoading(false)
       }
     }
 
-  return { getData, fetchedData, error, loading }
+  return { getData, data, error, loading }
 }
 
 export default useFetch
