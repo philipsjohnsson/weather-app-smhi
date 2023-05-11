@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './TableWeather.css'
 
-const TableWeather = ({ tableHeader, tableList, callBackFunction, classTr }) => {
+const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }) => {
 
   useEffect(() => {
     console.log(tableList)
@@ -9,7 +9,7 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, classTr }) => 
 
   const test = (event: React.MouseEvent<HTMLTableRowElement>) => {
     console.log(event.currentTarget.dataset.time)
-    
+
     callBackFunction(event.currentTarget.dataset.time)
   }
 
@@ -26,14 +26,16 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, classTr }) => 
           <th>wind</th>
         </tr>
         {tableList.map((obj) => (
-          <tr onClick={test} className={classTr} data-time={obj.time}>
+          <tr onClick={!showTrButton ? test : undefined} className={!showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
             <td>{obj.time}</td>
             {obj.symbol.map((arrSym: string) => (
-              <td>{arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px"></img>}</td>
+              <td key={arrSym}>
+                {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
+              </td>
             ))}
             <td>{obj.temp}</td>
           </tr>
-          ))}
+        ))}
       </table>
     </div>
   )

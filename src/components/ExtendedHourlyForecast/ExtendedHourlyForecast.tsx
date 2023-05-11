@@ -17,7 +17,7 @@ const ExtendedHourlyForecast = ({ date, tableList, setShowExtendedHourlyForecast
   return (
     <div className="hour-container">
       <button onClick={closeExtendedData}>&#x78;</button>
-      <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction="" classTr="nothing"/>
+      <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction="" showTrButton={true}/>
     </div>
   )
 }

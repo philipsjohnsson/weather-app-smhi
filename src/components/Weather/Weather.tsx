@@ -27,7 +27,7 @@ const Weather = ({ weatherData }) => {
 
   useEffect(() => {
     setClassTr("nothing")
-    showExtendedHourlyForecast ? setShowTable(false) : setShowTable(true)
+    // showExtendedHourlyForecast ? setShowTable(false) : setShowTable(true)
   }, [showExtendedHourlyForecast])
 
   const tableFnc = (date: string) => {
@@ -38,7 +38,7 @@ const Weather = ({ weatherData }) => {
 
 return (
   <div>
-    {showTable ? <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction={tableFnc} classTr="weather-info-tr"/> : <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction="" classTr="nothing" /> }
+    {showTable && <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction={tableFnc} showTrButton={showExtendedHourlyForecast} />}
     {showExtendedHourlyForecast && <ExtendedHourlyForecast date={date} tableList={tableList} setShowExtendedHourlyForecast={setShowExtendedHourlyForecast} />}
   </div>
 )
