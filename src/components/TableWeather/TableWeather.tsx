@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import './TableWeather.css'
 
-const TableWeather = ({ tableList, setShowExtendedHourlyForecast, classTr }) => {
+const TableWeather = ({ tableHeader, tableList, callBackFunction, classTr }) => {
 
   useEffect(() => {
     console.log(tableList)
   }, [tableList])
 
-  const test = (event) => {
-    console.log('TEST')
-    setShowExtendedHourlyForecast(true)
+  const test = (event: React.MouseEvent<HTMLTableRowElement>) => {
+    console.log(event.currentTarget.dataset.time)
+    
+    callBackFunction(event.currentTarget.dataset.time)
   }
 
   return (
@@ -25,7 +26,7 @@ const TableWeather = ({ tableList, setShowExtendedHourlyForecast, classTr }) => 
           <th>wind</th>
         </tr>
         {tableList.map((obj) => (
-          <tr onClick={test} className={classTr}>
+          <tr onClick={test} className={classTr} data-time={obj.time}>
             <td>{obj.time}</td>
             {obj.symbol.map((arrSym: string) => (
               <td>{arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px"></img>}</td>
