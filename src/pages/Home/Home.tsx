@@ -1,46 +1,34 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
-// import useFetch from '../../hooks/useFetch'
 
 const Home = () => {
 
-  const { getData, data: coordinates, error: locationError, loading: locationLoading } = useFetch()
-  const { getData: weatherGetData, data: weatherData, error, loading: weatherLoading } = useFetch()
+  const { getData: weatherGetData, data: weatherData, error: weatherError, loading: weatherLoading } = useFetch()
   const [showButtons, setShowButtons] = useState(true)
-  
-  useEffect(() => {
-    console.log('We are inside of use effect')
-    setShowButtons(true)
-  }, [coordinates])
+  const [lon, setLon] = useState(null)
+  const [lat, setLat] = useState(null)
 
   useEffect(() => {
     console.log('USE EFFECT data changed: ')
     console.log(weatherData)
   }, [weatherData])
 
-  const specificPlacedPicked = (event) => {
-    event.preventDefault()
-    // globalData.updateLocation(objLatitudeLongitude)
-
-    weatherGetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${event.currentTarget.value}/lat/${event.currentTarget.name}/data.json`)
-    
-    setShowButtons(false)
-  }
+  useEffect(() => {
+    if(!lat && !lon) {
+      return
+    } else {
+      weatherGetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lat, lon])
 
   return (
       <div>
-        <Search getData={getData} />
-        {locationLoading && <div>test test loading</div>}
-        {locationError && <div>Something went wrong!</div>}
-        {/* {data && <InfoSpecficPlace dataLocation={data} />} */}
-        {(coordinates && showButtons) && coordinates.data.map((obj) => (
-            <button className="btn-info-specific-place" onClick={specificPlacedPicked} name={obj.latitude} value={obj.longitude} >
-              <div>{obj.name}</div>
-              <div>{obj.country}, {obj.region}</div>
-            </button>
-          ))}
+        <Search setChoosenCity={{setLat, setLon}} />
+        {(weatherLoading) && <div>test test loading</div>}
+        {(weatherError) && <div>Something went wrong!</div>}
         {weatherData && <Weather weatherData={weatherData} />}
       </div>
     )

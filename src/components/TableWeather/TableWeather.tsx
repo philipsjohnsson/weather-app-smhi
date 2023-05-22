@@ -7,7 +7,7 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }
     console.log(tableList)
   }, [tableList])
 
-  const test = (event: React.MouseEvent<HTMLTableRowElement>) => {
+  const callback = (event: React.MouseEvent<HTMLTableRowElement>) => {
     console.log(event.currentTarget.dataset.time)
 
     callBackFunction(event.currentTarget.dataset.time)
@@ -17,16 +17,12 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }
     <div>
       <table className="table" cellSpacing="0">
         <tr>
-          <th>Day</th>
-          <th>Night</th>
-          <th>Morning</th>
-          <th>Afternoon</th>
-          <th>Evening</th>
-          <th>Temp (max / min)</th>
-          <th>wind</th>
+          {tableHeader.map((element: string) => (
+            <th>{element}</th>
+          ))}
         </tr>
         {tableList.map((obj) => (
-          <tr onClick={!showTrButton ? test : undefined} className={!showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
+          <tr onClick={!showTrButton ? callback : undefined} className={!showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
             <td>{obj.time}</td>
             {obj.symbol.map((arrSym: string) => (
               <td key={arrSym}>

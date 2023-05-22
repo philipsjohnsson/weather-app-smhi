@@ -11,8 +11,6 @@ export class ListExtendedData {
     }
   
     getExtendedData(date) {
-      console.log(this.#data)
-      console.log('DATE')
       const timeIntervalArr = []
       this.#data?.timeSeries.forEach((obj) => {
         
@@ -20,15 +18,19 @@ export class ListExtendedData {
           console.log(obj)
           const specificTime = {
             time: null,
+            symbol: [],
             temp: null
-            
           }
           specificTime.time = obj.validTime.substring(11, 16)
           obj?.parameters.forEach((element) => {
             if(element.name === 't') {
               specificTime.temp = element.values[0]
+            } 
+            
+            if(element.name === 'Wsymb2') {
+              specificTime.symbol.push(element.values[0])
             }
-          });
+          })
           timeIntervalArr.push(specificTime)
         }
       })
@@ -53,6 +55,7 @@ export class ListExtendedData {
     }
   
     getWeatherSymbolBasedOnDate(date, timeInterval) {
+      console.log(timeInterval)
       const symbolArr = []
       this.#data?.timeSeries.forEach((obj) => {
         if(date === obj.validTime.substring(0, 10) && timeInterval.includes(obj.validTime.substring(11, 13))) {

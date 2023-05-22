@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import TableWeather from "../TableWeather/TableWeather"
 import './ExtendedHourlyForecast.css'
 
-const ExtendedHourlyForecast = ({ date, tableList, setShowExtendedHourlyForecast }) => {
+const ExtendedHourlyForecast = ({ date, listWithDaysInstance, setShowExtendedHourlyForecast }) => {
   const [tableHeader, setTableHeader] = useState<Array<string>>([])
-  
+  const [tableListExtendedForecast, setTableListExtendedForecast] = useState<Array<string>>([])
 
   useEffect(() => {
-    setTableHeader(["Day", "Night", "Morning", "Afternoon", "Evening", "Temp (max / min)", "wind"])
+    setTableHeader(["Tid", "Väder", "Temp.", "vind"])
+    setTableListExtendedForecast(listWithDaysInstance.getExtendedData(date))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date])
 
   const closeExtendedData = (event) => {
@@ -16,8 +18,17 @@ const ExtendedHourlyForecast = ({ date, tableList, setShowExtendedHourlyForecast
 
   return (
     <div className="hour-container">
-      <button onClick={closeExtendedData}>&#x78;</button>
-      <TableWeather tableHeader={tableHeader} tableList={tableList} callBackFunction="" showTrButton={true}/>
+      <div className="forecast-wrapper-popup overlay"> 
+        <div className="forecast-box popup">
+          <div className="header-container">
+            <div className="header-text">{date}</div>
+            <button onClick={closeExtendedData} className="close-btn">&#x78;</button>
+          </div>
+          <div className="content-container">
+            <TableWeather tableHeader={tableHeader} tableList={tableListExtendedForecast} callBackFunction="" showTrButton={true} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

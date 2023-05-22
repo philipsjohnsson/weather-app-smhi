@@ -1,7 +1,7 @@
 .table {
     width: 100%;
     table-layout: fixed;
-    
+    float: left;
 }
 
 .weather-info-tr:hover {
@@ -10,5 +10,21 @@
 }
 
 td {
-    padding: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
+
+td:first-child {
+    padding: 0;
+    width: 150px;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+    height: 33px;
+}
+
+th:first-child {
+    text-align: left;
+}
+
