@@ -21,9 +21,10 @@ const Dropdown = ({options, callbackDropdownOptionPressed}) => {
       <div className="dropdown">
         {options.loading && <div className="dropdown-option"><div className="dropdown-option-text">Loading...</div></div>}
         {options.error && <div className="dropdown-option">error</div>}
-        {options.data && options.data.data.map((obj) => (
-          <div className="dropdown-option" onClick={pressedOption} data-coordinates={`${obj.latitude}-${obj.longitude}`}><div className="dropdown-option-text"><div>{obj.name}</div>,  <div>{obj.region}, {obj.country}</div></div></div>
-        ))}
+        {options.data && options.data.data.map((obj, i) => {
+        return (
+          <div className="dropdown-option" key={i} onClick={pressedOption} data-coordinates={`${obj.latitude}-${obj.longitude}`}><div className="dropdown-option-text"><div>{obj.name}</div>,  <div>{obj.region}, {obj.country}</div></div></div>
+        )})}
       </div>
     </div>
     )

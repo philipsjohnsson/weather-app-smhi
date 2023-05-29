@@ -6,8 +6,8 @@ const useComponentVisible = () => {
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== 'INPUT') {
+      console.log('we are inside of here')
       setIsComponentVisible(false)
-      event.preventDefault()
     }
   }
 

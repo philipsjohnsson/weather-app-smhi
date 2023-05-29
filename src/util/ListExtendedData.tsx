@@ -13,15 +13,16 @@ export class ListExtendedData {
     getExtendedData(date) {
       const timeIntervalArr = []
       this.#data?.timeSeries.forEach((obj) => {
-        
         if(date === obj.validTime.substring(0, 10)) {
           console.log(obj)
           const specificTime = {
             time: null,
+            timeString: null,
             symbol: [],
             temp: null
           }
           specificTime.time = obj.validTime.substring(11, 16)
+          specificTime.timeString = obj.validTime.substring(11, 16)
           obj?.parameters.forEach((element) => {
             if(element.name === 't') {
               specificTime.temp = element.values[0]

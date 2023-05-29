@@ -7,7 +7,7 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }
     console.log(tableList)
   }, [tableList])
 
-  const callback = (event: React.MouseEvent<HTMLTableRowElement>) => {
+  const clickedOnButtonCallback = (event: React.MouseEvent<HTMLTableRowElement>) => {
     console.log(event.currentTarget.dataset.time)
 
     callBackFunction(event.currentTarget.dataset.time)
@@ -16,22 +16,26 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }
   return (
     <div>
       <table className="table" cellSpacing="0">
-        <tr>
-          {tableHeader.map((element: string) => (
-            <th>{element}</th>
-          ))}
-        </tr>
-        {tableList.map((obj) => (
-          <tr onClick={!showTrButton ? callback : undefined} className={!showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
-            <td>{obj.time}</td>
-            {obj.symbol.map((arrSym: string) => (
-              <td key={arrSym}>
-                {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
-              </td>
+        <thead>
+          <tr>
+            {tableHeader.map((element: string, index: number) => (
+              <th key={index}>{element}</th>
             ))}
-            <td>{obj.temp}</td>
           </tr>
-        ))}
+        </thead>
+          <tbody>
+            {tableList.map((obj, i: number) => (
+              <tr key={i} onClick={showTrButton ? clickedOnButtonCallback : undefined} className={showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
+                <td>{obj.timeString}</td>
+                {obj.symbol.map((arrSym: string, index: number) => (
+                  <td key={`${i}-${index}`}>
+                    {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
+                  </td>
+                ))}
+                <td>{obj.temp}</td>
+              </tr>
+            ))}
+          </tbody>
       </table>
     </div>
   )

@@ -1,4 +1,6 @@
 import { ListExtendedData } from "./ListExtendedData"
+import { getDate, getMonthName } from "./helpDateFunctions"
+
 
 
 export class ListWithDays {
@@ -18,6 +20,7 @@ export class ListWithDays {
       if (date !== this?.getAllDates()[index - 1]) {
         const obj = {
           time: date,
+          timeString: `${getDate(date)} ${date.substring(8, 10)}. ${getMonthName(date)} `,
           symbol: [this.getWeatherSymbolBasedOnDate(date, ["00", "01", "02", "03", "04", "05"]), this.getWeatherSymbolBasedOnDate(date, ["06", "07", "08", "09", "10", "11"]), this.getWeatherSymbolBasedOnDate(date, ["12", "13", "14", "15", "16", "17"]), this.getWeatherSymbolBasedOnDate(date, ["18", "19", "20", "21", "22", "23"])],
           temp: `${Math.round(Math.max(...this.getTempExtendedDataBasedOnDateArr(date)))}°C / ${Math.round(Math.min(...this.getTempExtendedDataBasedOnDateArr(date)))}°C`
         }
