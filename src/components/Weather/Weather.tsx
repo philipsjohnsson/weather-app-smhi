@@ -13,15 +13,8 @@ const Weather = () => {
   const [tableHeaderEveryDay, setTableHeaderEveryDay] = useState<Array<string>>([])
   const [tableHeaderExtendedForecast, setTableHeaderExtendedForecast] = useState<Array<string>>([])
   const [tableListExtendedForecast, setTableListExtendedForecast] = useState<Array<string> | null>([])
-  const modifyWeatherDataContext = useUpdateListWithDays()
+  // const modifyWeatherDataContext = useUpdateListWithDays()
   const weatherDataContext = useListWithDays()
-
-  /* useEffect(() => {
-    setShowTable(false)
-    console.log(weatherData)
-    modifyWeatherDataContext.updateWeatherData(weatherData)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weatherData]) */
 
   useEffect(() => {
     setShowTable(false)
