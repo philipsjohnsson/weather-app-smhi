@@ -1,7 +1,7 @@
-export function getExtendedDataHelp(arrayWeather, date) {
+export function getExtendedDataHelp (arrayWeather, date) {
   const timeIntervalArr = []
   arrayWeather?.forEach((obj) => {
-    if(date === obj.validTime.substring(0, 10)) {
+    if (date === obj.validTime.substring(0, 10)) {
       const specificTime = {
         time: null,
         timeString: null,
@@ -11,11 +11,11 @@ export function getExtendedDataHelp(arrayWeather, date) {
       specificTime.time = obj.validTime.substring(11, 16)
       specificTime.timeString = obj.validTime.substring(11, 16)
       obj?.parameters.forEach((element) => {
-        if(element.name === 't') {
+        if (element.name === 't') {
           specificTime.temp = element.values[0]
-        } 
-        
-        if(element.name === 'Wsymb2') {
+        }
+
+        if (element.name === 'Wsymb2') {
           specificTime.symbol.push(element.values[0])
         }
       })
@@ -25,27 +25,27 @@ export function getExtendedDataHelp(arrayWeather, date) {
   return timeIntervalArr
 }
 
-export function getTempExtendedDataBasedOnDateArr(arrayWeather, date) {
+export function getTempExtendedDataBasedOnDateArr (arrayWeather, date) {
   const tempArr = []
   arrayWeather?.forEach((obj) => {
-    if(date === obj.validTime.substring(0, 10)) {
+    if (date === obj.validTime.substring(0, 10)) {
       obj?.parameters.forEach((para) => {
-        if(para.name === 't') {
+        if (para.name === 't') {
           tempArr.push(para.values[0])
         }
-      })  
+      })
     }
   })
   return tempArr
 }
 
-export function getWeatherSymbolBasedOnDateHelp(arrayWeather, date, timeInterval) {
+export function getWeatherSymbolBasedOnDateHelp (arrayWeather, date, timeInterval) {
   const symbolArr = []
 
   arrayWeather?.forEach((obj) => {
-    if(date === obj.validTime.substring(0, 10) && timeInterval.includes(obj.validTime.substring(11, 13))) {
+    if (date === obj.validTime.substring(0, 10) && timeInterval.includes(obj.validTime.substring(11, 13))) {
       obj?.parameters.forEach((para) => {
-        if(para.name === 'Wsymb2') {
+        if (para.name === 'Wsymb2') {
           symbolArr.push(para.values[0])
         }
       })

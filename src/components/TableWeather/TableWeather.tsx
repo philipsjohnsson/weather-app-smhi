@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
 import './TableWeather.css'
+import { type TableWeatherProps } from './TableWeatherProps'
 
-const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }) => {
-
+function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton }: TableWeatherProps): JSX.Element {
   useEffect(() => {
     console.log(tableList)
   }, [tableList])
 
-  const clickedOnButtonCallback = (event: React.MouseEvent<HTMLTableRowElement>) => {
+  const clickedOnButtonCallback = (event: React.MouseEvent<HTMLTableRowElement>): void => {
     console.log(event.currentTarget.dataset.time)
 
     callBackFunction(event.currentTarget.dataset.time)
@@ -23,22 +24,27 @@ const TableWeather = ({ tableHeader, tableList, callBackFunction, showTrButton }
             ))}
           </tr>
         </thead>
-          <tbody>
-            {tableList.map((obj, i: number) => (
-              <tr key={i} onClick={showTrButton ? clickedOnButtonCallback : undefined} className={showTrButton ? "weather-info-tr" : ""} data-time={obj.time}>
-                <td>{obj.timeString}</td>
-                {obj.symbol.map((arrSym: string, index: number) => (
-                  <td key={`${i}-${index}`}>
-                    {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
-                  </td>
-                ))}
-                <td>{obj.temp}</td>
-              </tr>
-            ))}
-          </tbody>
+        <tbody>
+          {tableList.map((obj, i: number) => (
+            <tr
+              key={i}
+              onClick={showTrButton ? clickedOnButtonCallback : undefined}
+              className={showTrButton ? 'weather-info-tr' : ''}
+              data-time={obj.time}
+            >
+              <td>{obj.timeString}</td>
+              {obj.symbol.map((arrSym: string, index: number) => (
+                <td key={`${i}-${index}`}>
+                  {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
+                </td>
+              ))}
+              <td>{obj.temp}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   )
 }
 
-export default TableWeather;
+export default TableWeather

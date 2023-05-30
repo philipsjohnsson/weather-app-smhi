@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 const useDelayTime = (delay) => {
   const [timer, setTimer] = useState()
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer)
-    }
+  useEffect(() => () => {
+    clearTimeout(timer)
   }, [timer])
-
 
   const delayTime = (callback, ...args) => {
     clearTimeout(timer)
@@ -19,8 +16,8 @@ const useDelayTime = (delay) => {
 
     setTimer(newTimer)
   }
-  
+
   return delayTime
 }
 
-export default useDelayTime;
+export default useDelayTime

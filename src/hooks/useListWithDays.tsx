@@ -6,22 +6,22 @@ const ThemeContext = React.createContext()
 const ThemeUpdateContext = React.createContext()
 const ThemeUseContext = React.createContext()
 
-export function useListWithDaysArr() {
+export function useListWithDaysArr () {
   return useContext(ThemeContext)
 }
 
-export function useUpdateListWithDays() {
+export function useUpdateListWithDays () {
   return useContext(ThemeUpdateContext)
 }
 
-export function useListWithDays() {
+export function useListWithDays () {
   return useContext(ThemeUseContext)
 }
 
-export const ThemeProvider = ({ children }) => {
+export function ThemeProvider ({ children }) {
   const [arrayWeatherForecast, setArrayWeatherForecast] = useState([])
 
-  function updateWeatherData(dataObj) {
+  function updateWeatherData (dataObj) {
     const weatherArr = []
     dataObj?.timeSeries.map((obj) => {
       weatherArr.push(obj)
@@ -29,11 +29,11 @@ export const ThemeProvider = ({ children }) => {
     setArrayWeatherForecast(weatherArr)
   }
 
-  function getForecastForEachDay() {
+  function getForecastForEachDay () {
     return calculateForecastForEachDay(arrayWeatherForecast)
   }
 
-  function getExtendedData(date) {
+  function getExtendedData (date) {
     return getExtendedDataHelp(arrayWeatherForecast, date)
   }
 

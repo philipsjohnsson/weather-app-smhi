@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react"
+import React, { useRef, useEffect, useState } from 'react'
 
 const useComponentVisible = () => {
   const [isComponentVisible, setIsComponentVisible] = useState(false)
@@ -12,10 +12,10 @@ const useComponentVisible = () => {
   }
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener('mousedown', handleClickOutside)
     }
   })
 
@@ -23,6 +23,3 @@ const useComponentVisible = () => {
 }
 
 export default useComponentVisible
-
-
-
