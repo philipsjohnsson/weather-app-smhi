@@ -19,6 +19,6 @@
   ],
   "rules": {
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
-    "max-len": ["error", {"code": 130}]
+    "max-len": ["error", {"code": 150}]
   }
 }

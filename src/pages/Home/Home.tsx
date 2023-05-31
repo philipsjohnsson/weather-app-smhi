@@ -17,7 +17,10 @@ function Home (): JSX.Element {
   }, [data])
 
   useEffect(() => {
-    weatherGetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
+    if (lon !== null && lat !== null) {
+      console.log('TEST TEST')
+      weatherGetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
+    }
   }, [lat, lon])
 
   return (

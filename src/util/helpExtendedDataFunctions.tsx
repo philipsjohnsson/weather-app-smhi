@@ -1,5 +1,6 @@
 export function getExtendedDataHelp (arrayWeather, date) {
   const timeIntervalArr = []
+
   arrayWeather?.forEach((obj) => {
     if (date === obj.validTime.substring(0, 10)) {
       const specificTime = {
@@ -8,15 +9,17 @@ export function getExtendedDataHelp (arrayWeather, date) {
         symbol: [],
         temp: null
       }
+
       specificTime.time = obj.validTime.substring(11, 16)
       specificTime.timeString = obj.validTime.substring(11, 16)
+
       obj?.parameters.forEach((element) => {
         if (element.name === 't') {
-          specificTime.temp = element.values[0]
+          specificTime.temp = element.values[0].toString()
         }
 
         if (element.name === 'Wsymb2') {
-          specificTime.symbol.push(element.values[0])
+          specificTime.symbol.push(element.values[0].toString())
         }
       })
       timeIntervalArr.push(specificTime)

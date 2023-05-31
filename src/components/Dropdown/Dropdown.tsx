@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './Dropdown.css'
-import useComponentVisible from '../../hooks/useComponentVisible'
+// import useComponentVisible from '../../hooks/useComponentVisible'
+import { type DropDownProps } from './DropDownProps'
 
-function Dropdown ({ options, callbackDropdownOptionPressed }): JSX.Element {
-  useEffect(() => {
-    console.log(options)
-  }, [options])
-
-  const pressedOption = (event): void => {
-    callbackDropdownOptionPressed(event.currentTarget.dataset.coordinates.split('-'))
+function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): JSX.Element {
+  const pressedOption = (event: React.MouseEvent<HTMLElement>): void => {
+    if (event.currentTarget.dataset.coordinates !== undefined) {
+      callbackDropdownOptionPressed(event.currentTarget.dataset.coordinates.split('-'))
+    }
   }
 
   return (
@@ -17,7 +16,7 @@ function Dropdown ({ options, callbackDropdownOptionPressed }): JSX.Element {
         {options.loading && <div className="dropdown-option">
           <div className="dropdown-option-text">Loading...</div>
         </div>}
-        {options.error && <div className="dropdown-option">error</div>}
+        {options.error && <div className="dropdown-option">Something went wrong</div>}
         {options.data?.data.map((obj, i) => (
           <div
             className="dropdown-option"
@@ -28,11 +27,9 @@ function Dropdown ({ options, callbackDropdownOptionPressed }): JSX.Element {
             <div className="dropdown-option-text">
               <div>{obj.name}</div>
               ,
-              {' '}
               <div>
                 {obj.region}
                 ,
-                {' '}
                 {obj.country}
               </div>
             </div>

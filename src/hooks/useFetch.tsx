@@ -9,13 +9,16 @@ const useFetch = () => {
     try {
       setLoading(true)
       setError(false)
+      console.log(error)
       const response = await fetch(url)
       const responseJson = await response.json()
-      if (responseJson.error) {
+      console.log(responseJson)
+      /* if (responseJson.error) {
         throw new Error('Something went wrong!')
       } else {
         setData(responseJson)
-      }
+      } */
+      setData(responseJson)
     } catch (error) {
       setError(true)
     } finally {

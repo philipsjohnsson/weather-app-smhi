@@ -8,16 +8,19 @@ function Weather (): JSX.Element {
   const [showTable, setShowTable] = useState<boolean>(false)
   const [showExtendedHourlyForecast, setShowExtendedHourlyForecast] = useState<boolean>(false)
   const [dateInLetters, setDateInLetters] = useState<string>('')
-  const [tableListEveryDay, setTableListEveryDay] = useState<any[]>([])
+  const [tableListEveryDay, setTableListEveryDay] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
   const [tableHeaderEveryDay, setTableHeaderEveryDay] = useState<string[]>([])
   const [tableHeaderExtendedForecast, setTableHeaderExtendedForecast] = useState<string[]>([])
-  const [tableListExtendedForecast, setTableListExtendedForecast] = useState<string[] | null>([])
+  const [
+    tableListExtendedForecast,
+    setTableListExtendedForecast
+  ] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
   const weatherDataContext = useListWithDays()
 
   useEffect(() => {
     setShowTable(false)
-    setTableListEveryDay(weatherDataContext.getForecastForEachDay())
-    console.log(weatherDataContext.getForecastForEachDay())
+    setTableListEveryDay(weatherDataContext?.getForecastForEachDay())
+    console.log(weatherDataContext?.getForecastForEachDay())
     setTableHeaderEveryDay(['Day', 'Night', 'Morning', 'Afternoon', 'Evening', 'Temp (max / min)', 'wind'])
   }, [weatherDataContext])
 
@@ -29,6 +32,7 @@ function Weather (): JSX.Element {
   const callbackShowExtendedForecast = (date: string): void => {
     setShowExtendedHourlyForecast(true)
     setTableHeaderExtendedForecast(['Tid', 'Väder', 'Temp.', 'vind'])
+    console.log(weatherDataContext?.getExtendedData(date))
     setTableListExtendedForecast(weatherDataContext?.getExtendedData(date))
     setDateInLetters(getDate(date))
   }
@@ -80,7 +84,7 @@ function Weather (): JSX.Element {
                 <TableWeather
                   tableHeader={tableHeaderExtendedForecast}
                   tableList={tableListExtendedForecast}
-                  callBackFunction=""
+                  callBackFunction={() => {}}
                   showTrButton={false}
                 />
               </div>
