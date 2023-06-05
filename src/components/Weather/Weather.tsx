@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import TableWeather from '../TableWeather/TableWeather'
 import './Weather.css'
 import { getDate } from '../../util/helpDateFunctions'
-import { useListWithDays } from '../../hooks/useListWithDays'
+import { useListWithDays } from '../../contexts/WeatherContext'
+import { type IWeatherContext } from '../../contexts/types/IWeatherContext'
 
 function Weather (): JSX.Element {
   const [showTable, setShowTable] = useState<boolean>(false)
@@ -15,12 +16,12 @@ function Weather (): JSX.Element {
     tableListExtendedForecast,
     setTableListExtendedForecast
   ] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
-  const weatherDataContext = useListWithDays()
+  const weatherDataContext = useListWithDays() as IWeatherContext
 
   useEffect(() => {
+    console.log(weatherDataContext)
     setShowTable(false)
-    setTableListEveryDay(weatherDataContext?.getForecastForEachDay())
-    console.log(weatherDataContext?.getForecastForEachDay())
+    setTableListEveryDay(weatherDataContext.getForecastForEachDay())
     setTableHeaderEveryDay(['Day', 'Night', 'Morning', 'Afternoon', 'Evening', 'Temp (max / min)', 'wind'])
   }, [weatherDataContext])
 

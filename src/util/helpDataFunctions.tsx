@@ -1,7 +1,7 @@
 import { getExtendedDataHelp, getTempExtendedDataBasedOnDateArr, getWeatherSymbolBasedOnDateHelp } from '../util/helpExtendedDataFunctions'
 import { getDate, getMonthName } from '../util/helpDateFunctions'
 
-export function calculateForecastForEachDay (arrayWeatherForecast) {
+export function calculateForecastForEachDay (arrayWeatherForecast): Array<{ time: string, timeString: string, temp: string, symbol: string[] }> {
   const arrayWithForecast = []
 
   getAllDates(arrayWeatherForecast).map((date, index) => {

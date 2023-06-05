@@ -1,7 +1,7 @@
 import React from 'react'
 import './Dropdown.css'
-// import useComponentVisible from '../../hooks/useComponentVisible'
 import { type DropDownProps } from './DropDownProps'
+import { type ILocationData } from './ILocationData'
 
 function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): JSX.Element {
   const pressedOption = (event: React.MouseEvent<HTMLElement>): void => {
@@ -17,7 +17,7 @@ function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): J
           <div className="dropdown-option-text">Loading...</div>
         </div>}
         {options.error && <div className="dropdown-option">Something went wrong</div>}
-        {options.data?.data.map((obj, i) => (
+        {options.data?.data.map((obj: ILocationData, i: number) => (
           <div
             className="dropdown-option"
             key={i}

@@ -1,4 +1,4 @@
-export function getExtendedDataHelp (arrayWeather, date) {
+export function getExtendedDataHelp (arrayWeather, date: string): Array<{ time: string, timeString: string, temp: string, symbol: string[] }> {
   const timeIntervalArr = []
 
   arrayWeather?.forEach((obj) => {

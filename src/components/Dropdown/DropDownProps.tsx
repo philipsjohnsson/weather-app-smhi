@@ -1,4 +1,4 @@
 export interface DropDownProps {
-  options: { data: any, loading: boolean, error: boolean } // { data, loading, error }
+  options: { data: any, loading: boolean, error: boolean }
   callbackDropdownOptionPressed: (arg: string[]) => void
 }

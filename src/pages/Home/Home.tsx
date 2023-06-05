@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import useFetch from '../../hooks/useFetch'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
-import { useUpdateListWithDays } from '../../hooks/useListWithDays'
+import { useUpdateListWithDays } from '../../contexts/WeatherContext'
 
 function Home (): JSX.Element {
-  const { getData: weatherGetData, data, error, loading } = useFetch()
-  const [lon, setLon] = useState(null)
-  const [lat, setLat] = useState(null)
+  const { getData: weatherSetData, data, error, loading } = useFetch()
+  const [lon, setLon] = useState<number | null>(null)
+  const [lat, setLat] = useState<number | null>(null)
   const modifyWeatherDataContext = useUpdateListWithDays()
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function Home (): JSX.Element {
   useEffect(() => {
     if (lon !== null && lat !== null) {
       console.log('TEST TEST')
-      weatherGetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
+      weatherSetData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
     }
   }, [lat, lon])
 
