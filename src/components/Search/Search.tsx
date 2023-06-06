@@ -90,7 +90,10 @@ function Search ({ setChoosenCity }): JSX.Element {
       </div>
       <div ref={ref}>
         {(data && isComponentVisible) &&
-          <Dropdown options={{ data, loading, error }} callbackDropdownOptionPressed={callbackDropdownOptionPressed} />}
+          <Dropdown
+            options={{ data, loading, error }}
+            callbackDropdownOptionPressed={callbackDropdownOptionPressed} 
+          />}
       </div>
     </div>
   )

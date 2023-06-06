@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useFetch from '../../hooks/useFetch'
+// import useFetch from '../../hooks/useFetch'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
 import { useWeatherData } from '../../hooks/useWeatherData'
@@ -7,11 +7,11 @@ import { useWeatherData } from '../../hooks/useWeatherData'
 function Home (): JSX.Element {
   const [lon, setLon] = useState<number | null>(null)
   const [lat, setLat] = useState<number | null>(null)
-  const weatherDataContext = useWeatherData()
+  const useWeatherDataManagement = useWeatherData()
 
   useEffect(() => {
     if (lon !== null && lat !== null) {
-      void weatherDataContext
+      void useWeatherDataManagement
         .setWeatherData(`https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/${lon}/lat/${lat}/data.json`)
     }
   }, [lat, lon])
@@ -19,9 +19,9 @@ function Home (): JSX.Element {
   return (
     <div>
       <Search setChoosenCity={{ setLat, setLon }} />
-      {(weatherDataContext.loading) && <div>test test loading</div>}
-      {(weatherDataContext.error) && <div>Something went wrong! Please try again</div>}
-      {((Boolean(weatherDataContext.data)) && (!weatherDataContext.error)) && <Weather />}
+      {(useWeatherDataManagement.loading) && <div>test test loading</div>}
+      {(useWeatherDataManagement.error) && <div>Something went wrong! Please try again</div>}
+      {((Boolean(useWeatherDataManagement.data)) && (!useWeatherDataManagement.error)) && <Weather />}
     </div>
   )
 }
