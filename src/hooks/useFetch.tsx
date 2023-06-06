@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const useFetch = () => {
-  const [data, setData] = useState<any>(null) // make this a type, interface
+  const [data, setTheData] = useState<any>(null) // make this a type, interface
   const [error, setError] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const getData = async (url: string) => {
+  const setData = async (url: string) => {
     try {
       setLoading(true)
       setError(false)
@@ -18,7 +18,7 @@ const useFetch = () => {
       } else {
         setData(responseJson)
       } */
-      setData(responseJson)
+      setTheData(responseJson)
     } catch (error) {
       setError(true)
     } finally {
@@ -26,7 +26,7 @@ const useFetch = () => {
     }
   }
 
-  return { getData, data, error, loading }
+  return { setData, data, error, loading }
 }
 
 export default useFetch

@@ -7,7 +7,7 @@ import useComponentVisible from '../../hooks/useComponentVisible'
 
 function Search ({ setChoosenCity }): JSX.Element {
   const inputSearch = useRef<HTMLInputElement>(null)
-  const { getData, data, error, loading } = useFetch()
+  const { setData, data, error, loading } = useFetch()
   const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible()
   const [delayTime, setDelayTime] = useState<NodeJS.Timeout | null>(null)
 
@@ -57,7 +57,7 @@ function Search ({ setChoosenCity }): JSX.Element {
   const fetchData = async (userInput: string): Promise<void> => {
     if (process.env.REACT_APP_API_KEY_POSITIONSTACK !== undefined) {
       try {
-        await getData(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_API_KEY_POSITIONSTACK}&query=${userInput}`)
+        await setData(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_API_KEY_POSITIONSTACK}&query=${userInput}`)
         console.log(data)
         setIsComponentVisible(true)
       } catch (err) {
