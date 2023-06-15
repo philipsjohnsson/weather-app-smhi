@@ -5,6 +5,8 @@ import { type IWeatherForecast } from './types/IWeatherForecast'
 import { type IWeatherParameter } from './types/IParameter'
 import { type IWeatherTimeserie } from './types/IWeatherTimeserie'
 
+
+
 const ThemeContext = React.createContext()
 const ThemeUpdateContext = React.createContext()
 const ThemeUseContext = React.createContext()

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-// import useFetch from '../../hooks/useFetch'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
 import { useWeatherData } from '../../hooks/useWeatherData'
 
 function Home (): JSX.Element {
-  const [lon, setLon] = useState<number | null>(null)
-  const [lat, setLat] = useState<number | null>(null)
+  const [lon, setLon] = useState<string | null>(null)
+  const [lat, setLat] = useState<string | null>(null)
   const useWeatherDataManagement = useWeatherData()
 
   useEffect(() => {

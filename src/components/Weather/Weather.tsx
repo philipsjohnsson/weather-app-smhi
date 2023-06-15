@@ -55,44 +55,44 @@ function Weather (): JSX.Element {
         </div>
       )}
       {showExtendedHourlyForecast && (
-      <div className="position-handle">
-        <div className="hour-container">
-          <div
-            className="forecast-wrapper-popup overlay"
-            role="button"
-            tabIndex={0}
-            onClick={closeExtendedData}
-            onKeyDown={closeExtendedData}
-          >
+        <div className="position-handle">
+          <div className="hour-container">
             <div
-              className="forecast-box popup"
+              className="forecast-wrapper-popup overlay"
               role="button"
               tabIndex={0}
-              onClick={(event) => { event.stopPropagation() }}
-              onKeyDown={(event) => { event.stopPropagation() }}
+              onClick={closeExtendedData}
+              onKeyDown={closeExtendedData}
             >
-              <div className="header-container">
-                <div className="header-text">{dateInLetters}</div>
-                <button
-                  type="button"
-                  onClick={closeExtendedData}
-                  className="close-btn"
-                >
-                  &#x78;
-                </button>
-              </div>
-              <div className="content-container">
-                <TableWeather
-                  tableHeader={tableHeaderExtendedForecast}
-                  tableList={tableListExtendedForecast}
-                  callBackFunction={() => {}}
-                  showTrButton={false}
-                />
+              <div
+                className="forecast-box popup"
+                role="button"
+                tabIndex={0}
+                onClick={(event) => { event.stopPropagation() }}
+                onKeyDown={(event) => { event.stopPropagation() }}
+              >
+                <div className="header-container">
+                  <div className="header-text">{dateInLetters}</div>
+                  <button
+                    type="button"
+                    onClick={closeExtendedData}
+                    className="close-btn"
+                  >
+                    &#x78;
+                  </button>
+                </div>
+                <div className="content-container">
+                  <TableWeather
+                    tableHeader={tableHeaderExtendedForecast}
+                    tableList={tableListExtendedForecast}
+                    callBackFunction={() => { }}
+                    showTrButton={false}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       )}
     </div>
   )

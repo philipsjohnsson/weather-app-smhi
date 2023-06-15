@@ -1,25 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const useFetch = () => {
+interface IuseFetch {
+  setData: (url: string) => Promise<void>
+  data: any
+  error: boolean
+  loading: boolean
+}
+
+const useFetch = (): IuseFetch => {
   const [data, setTheData] = useState<any>(null) // make this a type, interface
   const [error, setError] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const setData = async (url: string) => {
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+
+  const setData = async (url: string): Promise<void> => {
     try {
       setLoading(true)
       setError(false)
-      console.log(error)
       const response = await fetch(url)
       const responseJson = await response.json()
-      console.log(responseJson)
-      /* if (responseJson.error) {
-        throw new Error('Something went wrong!')
-      } else {
-        setData(responseJson)
-      } */
       setTheData(responseJson)
-    } catch (error) {
+    } catch (err) {
       setError(true)
     } finally {
       setLoading(false)
