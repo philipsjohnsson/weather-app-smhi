@@ -50,6 +50,4 @@ In the project directory, you can run the following scripts:
 4. If there is an error fetching the weather data, an error message will be displayed.
 5. The loading indicator will be shown while the data is being fetched.
 6. The weather forecast for each day will be displayed on the page.
-7. The application also makes it possible to press a specific day to get hourly forecast for the specific day.
-8. If there is an error fetching the weather data, an error message will be displayed.
-9. The loading indicator will be shown while the data is being fetched.
+7. The application also allows you to select a specific day to view the hourly forecast for that day.
