@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# Weather Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React application that provides weather information using the SMHI API and the Positionstack API.
+
+## Preparations
+
+Before running the application, make sure you have the following:
+
+- Node.js installed on your machine
+- API keys for the SMHI API and the Positionstack API
+
+## Getting Started
+
+To get started with the application, follow these steps:
+
+1. Clone the repository to your local machine.
+2. Install the dependencies by running the following command:
+
+   ```shell
+   npm install
+   ```
+3. Create a .env file in the root directory of the project and add the following variables:
+
+    ```makefile
+    REACT_APP_API_KEY_POSITIONSTACK=<YOUR_POSITIONSTACK_API_KEY>
+    REACT_APP_API_POSS=<YOUR_SMHI_API_KEY>
+    ```
+Replace <YOUR_POSITIONSTACK_API_KEY> with your Positionstack API key, and <YOUR_SMHI_API_KEY> with your SMHI API key.
+
+4. Start the application by running the following command:
+
+    ```shell
+    npm start
+    ```
+
+5. Open http://localhost:3000 in your browser to view the application.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following scripts:
+* `npm start`: Runs the app in development mode.
+* `npm run build`: Builds the app for production.
 
-### `npm start`
+## Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. On the home page, enter a city in Sweden or close to Sweden in the input field 
+*(Keep in mind: It's not sure that the SMHI API will not work with cities that is to far from Sweden)*
+2. Choose a city in the dropdown option menu.
+3. The application will thereafter fetch the weather data from the SMHI API based on the provided coordinates.
+4. If there is an error fetching the weather data, an error message will be displayed.
+5. The loading indicator will be shown while the data is being fetched.
+6. The weather forecast for each day will be displayed on the page.
+7. The application also makes it possible to press a specific day to get hourly forecast for the specific day.
+8. If there is an error fetching the weather data, an error message will be displayed.
+9. The loading indicator will be shown while the data is being fetched.
