@@ -3,7 +3,7 @@ import TableWeather from '../TableWeather/TableWeather'
 import './Weather.css'
 import { getDate } from '../../util/forecastDateFunctions'
 import { useListWithDays } from '../../contexts/WeatherContext'
-import { useWeatherData } from '../../hooks/useWeatherData'
+import { useWeatherData } from '../../hooks/useWeatherContext'
 
 interface IWeatherContext {
   getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>

@@ -8,7 +8,7 @@ interface FetchResult {
 }
 
 const useFetch = (): FetchResult => {
-  const [data, setTheData] = useState<any>(null) // make this a type, interface
+  const [data, setTheData] = useState<any>(null)
   const [error, setError] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
