@@ -6,6 +6,7 @@ interface IWeatherForecast {
   timeString: string
   temp: string
   symbol: string[]
+  wind: string
 }
 
 interface IWeatherTimeserie {
@@ -33,8 +34,9 @@ export function calculateForecastForEachDay (arrayWeatherForecast: IWeatherTimes
           getWeatherSymbolBasedOnDate(arrayWeatherForecast, date, ['12', '13', '14', '15', '16', '17']),
           getWeatherSymbolBasedOnDate(arrayWeatherForecast, date, ['18', '19', '20', '21', '22', '23'])
         ],
-        temp: `${Math.round(Math.max(...getTempExtendedDataBasedOnDateArr(arrayWeatherForecast, date)))}°C / 
-          ${Math.round(Math.min(...getTempExtendedDataBasedOnDateArr(arrayWeatherForecast, date)))}°C`
+        temp: `${Math.round(Math.max(...getTempExtendedDataBasedOnDateArr(arrayWeatherForecast, date, 't')))}°C / 
+          ${Math.round(Math.min(...getTempExtendedDataBasedOnDateArr(arrayWeatherForecast, date, 't')))}°C`,
+        wind: `${Math.round(Math.max(...getTempExtendedDataBasedOnDateArr(arrayWeatherForecast, date, 'ws')))} m/s`
       }
       arrayWithForecast.push(obj)
     }
@@ -48,6 +50,7 @@ function getAllDates (arrayWeatherForecast: IWeatherTimeserie[]): string[] {
   arrayWeatherForecast.forEach((obj) => {
     dates.push(obj.validTime.substring(0, 10))
   })
+
   return dates
 }
 
@@ -84,6 +87,7 @@ function getMode (symbolIndexArr: number[]): number[] {
       array.push(Number(key))
     }
   })
+
   array.sort((a, b) => a - b)
 
   return array

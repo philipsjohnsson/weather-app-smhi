@@ -3,31 +3,40 @@ import TableWeather from '../TableWeather/TableWeather'
 import './Weather.css'
 import { getDate } from '../../util/forecastDateFunctions'
 import { useListWithDays } from '../../contexts/WeatherContext'
-import { useWeatherData } from '../../hooks/useWeatherContext'
+import { useWeatherContext } from '../../hooks/useWeatherContext'
 
 interface IWeatherContext {
-  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
-  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[], wind: string }>
+  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[], wind: string }>
+}
+
+interface IWeatherForecast {
+  time: string
+  timeString: string
+  temp: string
+  symbol: string[]
+  wind: string
 }
 
 function Weather (): JSX.Element {
   const [showTable, setShowTable] = useState<boolean>(false)
   const [showExtendedHourlyForecast, setShowExtendedHourlyForecast] = useState<boolean>(false)
   const [dateInLetters, setDateInLetters] = useState<string>('')
-  const [tableListEveryDay, setTableListEveryDay] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
+  const [tableListEveryDay, setTableListEveryDay] = useState<IWeatherForecast[]>([])
   const [tableHeaderEveryDay, setTableHeaderEveryDay] = useState<string[]>([])
   const [tableHeaderExtendedForecast, setTableHeaderExtendedForecast] = useState<string[]>([])
   const [
     tableListExtendedForecast,
     setTableListExtendedForecast
-  ] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
+  ] = useState<IWeatherForecast[]>([])
   const weatherDataContext = useListWithDays() as IWeatherContext
-  const useWeatherDataManagement = useWeatherData()
+  const useWeatherDataManagement = useWeatherContext()
 
   useEffect(() => {
     setShowTable(false)
+    console.log(useWeatherDataManagement.getWeatherData())
     setTableListEveryDay(useWeatherDataManagement.getWeatherData())
-    setTableHeaderEveryDay(['Day', 'Night', 'Morning', 'Afternoon', 'Evening', 'Temp (max / min)', 'wind'])
+    setTableHeaderEveryDay(['Day', 'Night', 'Morning', 'Afternoon', 'Evening', 'Temp (max / min)', 'Wind'])
   }, [weatherDataContext])
 
   useEffect(() => {
@@ -37,7 +46,7 @@ function Weather (): JSX.Element {
 
   const callbackShowExtendedForecast = (date: string): void => {
     setShowExtendedHourlyForecast(true)
-    setTableHeaderExtendedForecast(['Tid', 'Väder', 'Temp.', 'vind'])
+    setTableHeaderExtendedForecast(['Time', 'Weather', 'Temp.', 'Wind'])
     setTableListExtendedForecast(useWeatherDataManagement?.getExtendedDataEachHour(date))
     setDateInLetters(getDate(date))
   }

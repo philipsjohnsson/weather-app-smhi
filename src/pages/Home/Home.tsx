@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
-import { useWeatherData } from '../../hooks/useWeatherContext'
+import { useWeatherContext } from '../../hooks/useWeatherContext'
 
 function Home (): JSX.Element {
   const [lon, setLon] = useState<string | null>(null)
   const [lat, setLat] = useState<string | null>(null)
-  const useWeatherDataManagement = useWeatherData()
+  const useWeatherDataManagement = useWeatherContext()
 
   useEffect(() => {
     if (lon !== null && lat !== null) {

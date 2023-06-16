@@ -14,6 +14,7 @@ interface IWeatherForecast {
   timeString: string
   temp: string
   symbol: string[]
+  wind: string
 }
 
 export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: string): IWeatherForecast[] {
@@ -25,7 +26,8 @@ export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: st
         time: '' as string,
         timeString: '' as string,
         symbol: [] as string[],
-        temp: '' as string
+        temp: '' as string,
+        wind: '' as string
       }
 
       specificTime.time = obj.validTime.substring(11, 16)
@@ -39,7 +41,12 @@ export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: st
         if (element.name === 'Wsymb2') {
           specificTime.symbol.push(element.values[0].toString())
         }
+
+        if (element.name === 'ws') {
+          specificTime.wind = `${Math.round(element.values[0]).toString()} m/s`
+        }
       })
+
       timeIntervalArr.push(specificTime)
     }
   })
@@ -47,12 +54,12 @@ export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: st
   return timeIntervalArr
 }
 
-export function getTempExtendedDataBasedOnDateArr (arrayWeather: IWeatherTimeserie[], date: string): number[] {
+export function getTempExtendedDataBasedOnDateArr (arrayWeather: IWeatherTimeserie[], date: string, wishedSymbol: string): number[] {
   const tempArr: number[] = []
   arrayWeather?.forEach((obj) => {
     if (date === obj.validTime.substring(0, 10)) {
       obj?.parameters.forEach((para) => {
-        if (para.name === 't') {
+        if (para.name === wishedSymbol) {
           tempArr.push(para.values[0])
         }
       })

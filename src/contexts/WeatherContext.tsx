@@ -17,6 +17,7 @@ interface IWeatherForecast {
   timeString: string
   temp: string
   symbol: string[]
+  wind: string
 }
 
 interface IWeatherTimeserie {

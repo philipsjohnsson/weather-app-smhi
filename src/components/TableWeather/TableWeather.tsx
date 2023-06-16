@@ -1,6 +1,18 @@
 import React from 'react'
 import './TableWeather.css'
-import { type TableWeatherProps } from './TableWeatherProps'
+
+interface TableWeatherProps {
+  tableHeader: string[]
+  callBackFunction: (arg: string) => void
+  tableList: Array<{
+    time: string
+    timeString: string
+    temp: string
+    symbol: string[]
+    wind: string
+  }> | null
+  showTrButton: boolean
+}
 
 function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton }: TableWeatherProps): JSX.Element {
   const clickedOnButtonCallback = (event: React.MouseEvent<HTMLTableRowElement>): void => {
@@ -34,6 +46,7 @@ function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton 
                 </td>
               ))}
               <td>{obj.temp}</td>
+              <td>{obj.wind}</td>
             </tr>
           ))}
         </tbody>

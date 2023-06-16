@@ -4,8 +4,8 @@ import useFetch from './useFetch'
 // import { type IWeatherContext } from '../contexts/types/IWeatherContext'
 
 interface IWeatherContext {
-  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
-  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[], wind: string }>
+  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[], wind: string }>
 }
 
 interface IWeatherForecast {
@@ -13,6 +13,7 @@ interface IWeatherForecast {
   timeString: string
   temp: string
   symbol: string[]
+  wind: string
 }
 
 interface returnFunctions {
@@ -24,7 +25,7 @@ interface returnFunctions {
   loading: boolean
 }
 
-export const useWeatherData = (): returnFunctions => {
+export const useWeatherContext = (): returnFunctions => {
   const { setData: weatherSetData, data, error, loading } = useFetch()
   const modifyDataContext = useUpdateListWithDays()
   const dataContext = useListWithDays() as IWeatherContext
