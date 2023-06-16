@@ -23,9 +23,9 @@ To get started with the application, follow these steps:
 
     ```makefile
     REACT_APP_API_KEY_POSITIONSTACK=<YOUR_POSITIONSTACK_API_KEY>
-    REACT_APP_API_POSS=<YOUR_SMHI_API_KEY>
+    REACT_APP_API_POSS=http://api.positionstack.com/v1/forward
     ```
-Replace <YOUR_POSITIONSTACK_API_KEY> with your Positionstack API key, and <YOUR_SMHI_API_KEY> with your SMHI API key.
+Replace <REACT_APP_API_KEY_POSITIONSTACK> with your Positionstack API key.
 
 4. Start the application by running the following command:
 
