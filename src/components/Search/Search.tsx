@@ -3,7 +3,6 @@ import './Search.css'
 import Dropdown from '../Dropdown/Dropdown'
 import useFetch from '../../hooks/useFetch'
 import useComponentVisible from '../../hooks/useComponentVisible'
-// import useDelayTime from '../../hooks/useDelayTime'
 
 interface ISetChoosenCity {
   setLat?: React.Dispatch<React.SetStateAction<string | null>>
@@ -69,8 +68,16 @@ function Search ({ setChoosenCity }: SearchProps): JSX.Element {
       setChoosenCity.setLat(coordinates[0])
       setChoosenCity.setLon(coordinates[1])
     }
-    if (inputSearch.current != null) {
+    if (inputSearch.current !== null) {
       inputSearch.current.value = ''
+    }
+  }
+
+  const showDropDown = (): void => {
+    if (inputSearch.current !== null && inputSearch.current.value.length > 2) {
+      setIsComponentVisible(true)
+    } else {
+      setIsComponentVisible(false)
     }
   }
 
@@ -84,11 +91,12 @@ function Search ({ setChoosenCity }: SearchProps): JSX.Element {
           required
           placeholder="Search for a city in Sweden"
           onKeyUp={delaySetSearchInput}
+          onMouseDown={showDropDown}
         />
       </div>
       <div ref={ref}>
-        {(data && isComponentVisible) &&
-          <Dropdown options={{ data, loading, error }} callbackDropdownOptionPressed={callbackDropdownOptionPressed}
+        {((Boolean(data)) && isComponentVisible) &&
+            <Dropdown options={{ data, loading, error }} callbackDropdownOptionPressed={callbackDropdownOptionPressed}
           />}
       </div>
     </div>

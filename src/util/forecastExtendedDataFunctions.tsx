@@ -1,13 +1,31 @@
-export function getExtendedDataHelp (arrayWeather, date: string): Array<{ time: string, timeString: string, temp: string, symbol: string[] }> {
-  const timeIntervalArr = []
+interface IWeatherTimeserie {
+  validTime: string
+  parameters: Array<{
+    name: string
+    levelType: string
+    level: number
+    unit: string
+    values: number[]
+  }>
+}
+
+interface IWeatherForecast {
+  time: string
+  timeString: string
+  temp: string
+  symbol: string[]
+}
+
+export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: string): Array<{ time: string, timeString: string, temp: string, symbol: string[] }> {
+  const timeIntervalArr: IWeatherForecast[] = []
 
   arrayWeather?.forEach((obj) => {
     if (date === obj.validTime.substring(0, 10)) {
       const specificTime = {
-        time: null,
-        timeString: null,
-        symbol: [],
-        temp: null
+        time: '' as string,
+        timeString: '' as string,
+        symbol: [] as string[],
+        temp: '' as string
       }
 
       specificTime.time = obj.validTime.substring(11, 16)
@@ -25,11 +43,12 @@ export function getExtendedDataHelp (arrayWeather, date: string): Array<{ time: 
       timeIntervalArr.push(specificTime)
     }
   })
+
   return timeIntervalArr
 }
 
-export function getTempExtendedDataBasedOnDateArr (arrayWeather, date) {
-  const tempArr = []
+export function getTempExtendedDataBasedOnDateArr (arrayWeather: IWeatherTimeserie[], date: string): number[] {
+  const tempArr: number[] = []
   arrayWeather?.forEach((obj) => {
     if (date === obj.validTime.substring(0, 10)) {
       obj?.parameters.forEach((para) => {
@@ -39,11 +58,13 @@ export function getTempExtendedDataBasedOnDateArr (arrayWeather, date) {
       })
     }
   })
+  console.log(tempArr)
+
   return tempArr
 }
 
-export function getWeatherSymbolBasedOnDateHelp (arrayWeather, date, timeInterval) {
-  const symbolArr = []
+export function getWeatherSymbolBasedOnDateHelp (arrayWeather: IWeatherTimeserie[], date: string, timeInterval: string[]): number[] {
+  const symbolArr: number[] = []
 
   arrayWeather?.forEach((obj) => {
     if (date === obj.validTime.substring(0, 10) && timeInterval.includes(obj.validTime.substring(11, 13))) {
@@ -54,5 +75,7 @@ export function getWeatherSymbolBasedOnDateHelp (arrayWeather, date, timeInterva
       })
     }
   })
+  console.log(symbolArr)
+
   return symbolArr
 }

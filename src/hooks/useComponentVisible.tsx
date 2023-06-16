@@ -1,12 +1,18 @@
-import React, { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
-const useComponentVisible = () => {
-  const [isComponentVisible, setIsComponentVisible] = useState(false)
-  const ref = useRef(null)
+interface IuseComponentVisible {
+  ref: React.RefObject<HTMLDivElement>
+  isComponentVisible: boolean
+  setIsComponentVisible: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== 'INPUT') {
-      console.log('we are inside of here')
+const useComponentVisible = (): IuseComponentVisible => {
+  const [isComponentVisible, setIsComponentVisible] = useState<boolean>(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const handleClickOutside = (event: MouseEvent): void => {
+    console.log(ref.current)
+    if ((ref.current != null) && !(ref.current.contains((event.target) as Node)) && (event.target as HTMLElement).tagName !== 'INPUT') {
       setIsComponentVisible(false)
     }
   }
@@ -17,7 +23,7 @@ const useComponentVisible = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  })
+  }, [])
 
   return { ref, isComponentVisible, setIsComponentVisible }
 }

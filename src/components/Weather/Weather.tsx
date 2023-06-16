@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import TableWeather from '../TableWeather/TableWeather'
 import './Weather.css'
-import { getDate } from '../../util/helpDateFunctions'
+import { getDate } from '../../util/forecastDateFunctions'
 import { useListWithDays } from '../../contexts/WeatherContext'
-import { type IWeatherContext } from '../../contexts/types/IWeatherContext'
+import { useWeatherData } from '../../hooks/useWeatherData'
+
+interface IWeatherContext {
+  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+}
 
 function Weather (): JSX.Element {
   const [showTable, setShowTable] = useState<boolean>(false)
@@ -17,11 +22,11 @@ function Weather (): JSX.Element {
     setTableListExtendedForecast
   ] = useState<Array<{ time: string, timeString: string, temp: string, symbol: string[] }>>([])
   const weatherDataContext = useListWithDays() as IWeatherContext
+  const useWeatherDataManagement = useWeatherData()
 
   useEffect(() => {
-    console.log(weatherDataContext)
     setShowTable(false)
-    setTableListEveryDay(weatherDataContext.getForecastForEachDay())
+    setTableListEveryDay(useWeatherDataManagement.getWeatherData())
     setTableHeaderEveryDay(['Day', 'Night', 'Morning', 'Afternoon', 'Evening', 'Temp (max / min)', 'wind'])
   }, [weatherDataContext])
 
@@ -33,8 +38,7 @@ function Weather (): JSX.Element {
   const callbackShowExtendedForecast = (date: string): void => {
     setShowExtendedHourlyForecast(true)
     setTableHeaderExtendedForecast(['Tid', 'Väder', 'Temp.', 'vind'])
-    console.log(weatherDataContext?.getExtendedData(date))
-    setTableListExtendedForecast(weatherDataContext?.getExtendedData(date))
+    setTableListExtendedForecast(useWeatherDataManagement?.getExtendedDataEachHour(date))
     setDateInLetters(getDate(date))
   }
 
@@ -85,7 +89,7 @@ function Weather (): JSX.Element {
                   <TableWeather
                     tableHeader={tableHeaderExtendedForecast}
                     tableList={tableListExtendedForecast}
-                    callBackFunction={() => { }}
+                    callBackFunction={() => {}}
                     showTrButton={false}
                   />
                 </div>

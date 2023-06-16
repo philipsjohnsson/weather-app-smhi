@@ -1,14 +1,33 @@
 import { useEffect } from 'react'
 import { useUpdateListWithDays, useListWithDays } from '../contexts/WeatherContext'
 import useFetch from './useFetch'
-import { type IWeatherForecast } from '../contexts/types/IWeatherForecast'
-// import { useUpdateListWithDays } from '../hooks/useWeatherData'
+// import { type IWeatherContext } from '../contexts/types/IWeatherContext'
 
-export const useWeatherData = ():
-{ setWeatherData: (url: string) => Promise<void>, getWeatherData: () => IWeatherForecast, data: any, error: boolean, loading: boolean } => {
+interface IWeatherContext {
+  getForecastForEachDay: () => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+  getExtendedData: (date: string) => Array<{ time: string, timeString: string, temp: string, symbol: string[] }>
+}
+
+interface IWeatherForecast {
+  time: string
+  timeString: string
+  temp: string
+  symbol: string[]
+}
+
+interface returnFunctions {
+  setWeatherData: (url: string) => Promise<void>
+  getWeatherData: () => IWeatherForecast[]
+  getExtendedDataEachHour: (date: string) => IWeatherForecast[]
+  data: any
+  error: boolean
+  loading: boolean
+}
+
+export const useWeatherData = (): returnFunctions => {
   const { setData: weatherSetData, data, error, loading } = useFetch()
   const modifyDataContext = useUpdateListWithDays()
-  const dataContext = useListWithDays()
+  const dataContext = useListWithDays() as IWeatherContext
 
   useEffect(() => {
     if (data !== null) {
@@ -22,9 +41,13 @@ export const useWeatherData = ():
     await weatherSetData(url)
   }
 
-  const getWeatherData = (): IWeatherForecast => {
+  const getWeatherData = (): IWeatherForecast[] => {
     return dataContext?.getForecastForEachDay()
   }
 
-  return { setWeatherData, getWeatherData, data, error, loading }
+  const getExtendedDataEachHour = (date: string): IWeatherForecast[] => {
+    return dataContext?.getExtendedData(date)
+  }
+
+  return { setWeatherData, getExtendedDataEachHour, getWeatherData, data, error, loading }
 }

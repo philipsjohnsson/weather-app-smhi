@@ -1,7 +1,11 @@
 import React from 'react'
 import './Dropdown.css'
-import { type DropDownProps } from './DropDownProps'
 import { type ILocationData } from './ILocationData'
+
+interface DropDownProps {
+  options: { data: any, loading: boolean, error: boolean }
+  callbackDropdownOptionPressed: (arg: string[]) => void
+}
 
 function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): JSX.Element {
   const pressedOption = (event: React.MouseEvent<HTMLElement>): void => {

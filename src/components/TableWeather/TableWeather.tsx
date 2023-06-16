@@ -25,7 +25,7 @@ function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton 
           </tr>
         </thead>
         <tbody>
-          {tableList.map((obj, i: number) => (
+          {tableList?.map((obj, i: number) => (
             <tr
               key={i}
               onClick={showTrButton ? clickedOnButtonCallback : undefined}

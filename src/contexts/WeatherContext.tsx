@@ -1,33 +1,64 @@
-import React, { useContext, useState } from 'react'
-import { getExtendedDataHelp } from '../util/helpExtendedDataFunctions'
-import { calculateForecastForEachDay } from '../util/helpDataFunctions'
-import { type IWeatherForecast } from './types/IWeatherForecast'
-import { type IWeatherParameter } from './types/IParameter'
-import { type IWeatherTimeserie } from './types/IWeatherTimeserie'
+import React, { type ReactNode, useContext, useState } from 'react'
+import { getExtendedDataHelp } from '../util/forecastExtendedDataFunctions'
+import { calculateForecastForEachDay } from '../util/forecastDataFunctions'
 
+interface IobjWeatherData {
+  approvedTime: string
+  geometry: {
+    coordinates: number[]
+    type: string
+  }
+  referenceTime: string
+  timeSeries: IWeatherTimeserie[]
+}
 
+interface IWeatherForecast {
+  time: string
+  timeString: string
+  temp: string
+  symbol: string[]
+}
 
-const ThemeContext = React.createContext()
-const ThemeUpdateContext = React.createContext()
-const ThemeUseContext = React.createContext()
+interface IWeatherTimeserie {
+  validTime: string
+  parameters: Array<{
+    name: string
+    levelType: string
+    level: number
+    unit: string
+    values: number[]
+  }>
+}
 
-export function useListWithDaysArr () {
+interface IThemeUseContext {
+  getForecastForEachDay: () => IWeatherForecast[]
+  getExtendedData: (date: string) => IWeatherForecast[]
+}
+
+interface IThemeUpdateContext {
+  updateWeatherData: (dataObj: IobjWeatherData) => void
+}
+
+const ThemeContext = React.createContext<IWeatherTimeserie[]>([])
+const ThemeUpdateContext = React.createContext<IThemeUpdateContext | null>(null)
+const ThemeUseContext = React.createContext<IThemeUseContext | null>(null)
+
+export function useListWithDaysArr (): IWeatherTimeserie[] {
   return useContext(ThemeContext)
 }
 
-export function useUpdateListWithDays () {
+export function useUpdateListWithDays (): IThemeUpdateContext | null {
   return useContext(ThemeUpdateContext)
 }
 
-export function useListWithDays () {
+export function useListWithDays (): IThemeUseContext | null {
   return useContext(ThemeUseContext)
 }
 
-export function ThemeProvider ({ children }) {
-  const [arrayWeatherForecast, setArrayWeatherForecast] = useState([])
+export function ThemeProvider ({ children }: { children: ReactNode }): JSX.Element {
+  const [arrayWeatherForecast, setArrayWeatherForecast] = useState<IWeatherTimeserie[]>([])
 
-  function updateWeatherData (dataObj): void {
-    console.log(dataObj)
+  function updateWeatherData (dataObj: IobjWeatherData): void {
     const weatherArr: IWeatherTimeserie[] = []
     dataObj?.timeSeries.forEach((obj: IWeatherTimeserie) => {
       weatherArr.push(obj)
@@ -37,6 +68,8 @@ export function ThemeProvider ({ children }) {
   }
 
   function getForecastForEachDay (): IWeatherForecast[] {
+    const test = calculateForecastForEachDay(arrayWeatherForecast)
+    console.log(test)
     return calculateForecastForEachDay(arrayWeatherForecast)
   }
 
