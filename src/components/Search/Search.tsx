@@ -20,7 +20,6 @@ function Search ({ setChoosenCity }: SearchProps): JSX.Element {
   const [searchInput, setSearchInput] = useState<string>('')
 
   useEffect(() => {
-    console.log(data)
     if (data !== null) {
       setIsComponentVisible(true)
     } else {

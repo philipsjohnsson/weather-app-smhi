@@ -11,7 +11,6 @@ const useComponentVisible = (): IuseComponentVisible => {
   const ref = useRef<HTMLDivElement>(null)
 
   const handleClickOutside = (event: MouseEvent): void => {
-    console.log(ref.current)
     if ((ref.current != null) && !(ref.current.contains((event.target) as Node)) && (event.target as HTMLElement).tagName !== 'INPUT') {
       setIsComponentVisible(false)
     }

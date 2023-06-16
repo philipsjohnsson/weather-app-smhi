@@ -13,6 +13,5 @@ export function getMonthName (date: string): string {
   const choosenDay = new Date(date)
   const monthIndex = choosenDay.getMonth()
 
-  console.log(monthNames[monthIndex])
   return monthNames[monthIndex]
 }

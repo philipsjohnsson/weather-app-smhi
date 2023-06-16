@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './TableWeather.css'
 import { type TableWeatherProps } from './TableWeatherProps'
 
 function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton }: TableWeatherProps): JSX.Element {
-  useEffect(() => {
-    console.log(tableList)
-  }, [tableList])
-
   const clickedOnButtonCallback = (event: React.MouseEvent<HTMLTableRowElement>): void => {
-    console.log(event.currentTarget.dataset.time)
     if (event.currentTarget.dataset.time !== undefined) {
       callBackFunction(event.currentTarget.dataset.time)
     }

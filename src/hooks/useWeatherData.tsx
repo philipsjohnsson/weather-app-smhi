@@ -36,8 +36,6 @@ export const useWeatherData = (): returnFunctions => {
   }, [data])
 
   const setWeatherData = async (url: string): Promise<void> => {
-    console.log(url)
-
     await weatherSetData(url)
   }
 

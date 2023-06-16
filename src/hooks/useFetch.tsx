@@ -1,20 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-interface IuseFetch {
+interface FetchResult {
   setData: (url: string) => Promise<void>
   data: any
   error: boolean
   loading: boolean
 }
 
-const useFetch = (): IuseFetch => {
+const useFetch = (): FetchResult => {
   const [data, setTheData] = useState<any>(null) // make this a type, interface
   const [error, setError] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-
-  useEffect(() => {
-    console.log(data)
-  }, [data])
 
   const setData = async (url: string): Promise<void> => {
     try {

@@ -63,13 +63,10 @@ export function ThemeProvider ({ children }: { children: ReactNode }): JSX.Eleme
     dataObj?.timeSeries.forEach((obj: IWeatherTimeserie) => {
       weatherArr.push(obj)
     })
-    console.log(weatherArr)
     setArrayWeatherForecast(weatherArr)
   }
 
   function getForecastForEachDay (): IWeatherForecast[] {
-    const test = calculateForecastForEachDay(arrayWeatherForecast)
-    console.log(test)
     return calculateForecastForEachDay(arrayWeatherForecast)
   }
 

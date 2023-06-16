@@ -16,7 +16,7 @@ interface IWeatherForecast {
   symbol: string[]
 }
 
-export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: string): Array<{ time: string, timeString: string, temp: string, symbol: string[] }> {
+export function getExtendedDataHelp (arrayWeather: IWeatherTimeserie[], date: string): IWeatherForecast[] {
   const timeIntervalArr: IWeatherForecast[] = []
 
   arrayWeather?.forEach((obj) => {
@@ -58,7 +58,6 @@ export function getTempExtendedDataBasedOnDateArr (arrayWeather: IWeatherTimeser
       })
     }
   })
-  console.log(tempArr)
 
   return tempArr
 }
@@ -75,7 +74,6 @@ export function getWeatherSymbolBasedOnDateHelp (arrayWeather: IWeatherTimeserie
       })
     }
   })
-  console.log(symbolArr)
 
   return symbolArr
 }
