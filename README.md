@@ -23,7 +23,6 @@ To get started with the application, follow these steps:
 
     ```makefile
     REACT_APP_API_KEY_POSITIONSTACK=<YOUR_POSITIONSTACK_API_KEY>
-    REACT_APP_API_POSS=http://api.positionstack.com/v1/forward
     ```
 Replace <REACT_APP_API_KEY_POSITIONSTACK> with your Positionstack API key.
 
