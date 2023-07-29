@@ -42,7 +42,7 @@ function TableWeather ({ tableHeader, tableList, callBackFunction, showTrButton 
               <td>{obj.timeString}</td>
               {obj.symbol.map((arrSym: string, index: number) => (
                 <td key={`${i}-${index}`}>
-                  {arrSym !== '0' && <img src={require(`../../pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
+                  {arrSym !== '0' && <img src={require(`../../assets/pictures/${arrSym}.png`)} alt="weather symbol" width="75px" />}
                 </td>
               ))}
               <td>{obj.temp}</td>

@@ -21,7 +21,8 @@ function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): J
           <div className="dropdown-option-text">Loading...</div>
         </div>}
         {options.error && <div className="dropdown-option">Something went wrong</div>}
-        {options.data?.data.map((obj: ILocationData, i: number) => (
+        {(options.data.data !== undefined)
+          ? options.data?.data.map((obj: ILocationData, i: number) => (
           <div
             className="dropdown-option"
             key={i}
@@ -37,8 +38,9 @@ function Dropdown ({ options, callbackDropdownOptionPressed }: DropDownProps): J
                 {obj.country}
               </div>
             </div>
-          </div>
-        ))}
+          </div>)
+          )
+          : (<div>Something went wrong...</div>)}
       </div>
     </div>
   )

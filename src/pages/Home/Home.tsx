@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Search from '../../components/Search/Search'
 import Weather from '../../components/Weather/Weather'
 import { useWeatherContext } from '../../hooks/useWeatherContext'
+import './Home.css'
 
 function Home (): JSX.Element {
   const [lon, setLon] = useState<string | null>(null)
@@ -16,7 +17,7 @@ function Home (): JSX.Element {
   }, [lat, lon])
 
   return (
-    <div>
+    <div className="container">
       <Search setChoosenCity={{ setLat, setLon }} />
       {(useWeatherDataManagement.loading) && <div>test test loading</div>}
       {(useWeatherDataManagement.error) && <div>Something went wrong! Please try again</div>}
